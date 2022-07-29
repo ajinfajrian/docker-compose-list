@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    hostname: code-server
+    environment:
+      - PUID=998 ## docker id
+      - PGID=100 
+      - TZ=Asia/Jakarta
+      - PASSWORD=password ## change login web gui
+      - SUDO_PASSWORD=password ## change this
+      - PROXY_DOMAIN=https://domain.id ## change this with your subdomain
+    volumes:
+      - /app/codeserver:/config ## change this with your environment
+    ports:
+      - 8443:8443
+    restart: unless-stopped
