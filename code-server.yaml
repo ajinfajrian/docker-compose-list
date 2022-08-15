@@ -4,6 +4,9 @@ services:
     image: lscr.io/linuxserver/code-server:latest
     container_name: code-server
     hostname: code-server
+    mem_limit: 512m
+    mem_reservation: 451M
+    cpus: 0.5
     environment:
       - PUID=998 ## docker id
       - PGID=100 
@@ -16,3 +19,12 @@ services:
     ports:
       - 8443:8443
     restart: unless-stopped
+
+# append this in your nginx for reverse proxy
+# location / {
+#   proxy_pass http://localhost:8443/;
+#   proxy_set_header Host $host;
+#   proxy_set_header Upgrade $http_upgrade;
+#   proxy_set_header Connection upgrade;
+#   proxy_set_header Accept-Encoding gzip;
+#   }
