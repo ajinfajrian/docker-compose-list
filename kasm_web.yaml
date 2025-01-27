@@ -1,0 +1,33 @@
+## user+pass vnc dashboard: kasm_user:gladiators88
+version: '3'
+services:
+  wa-kube-1:
+    image: kasmweb/chrome:1.16.0
+    container_name: wa-kube-1
+    shm_size: 968m
+    ports:
+      - "7000:6901"
+    environment:
+      - VNC_PW=<your_password>
+      - LAUNCH_URL=https://web.whatsapp.com
+      - TZ=Asia/Jakarta
+    volumes:
+      - wa-kube-1-data:/home/kasm-user
+    restart: unless-stopped
+
+  wa-kube-2:
+    image: kasmweb/chrome:1.16.0
+    container_name: wa-kube-2
+    shm_size: 968m
+    ports:
+      - "7001:6901"
+    environment:
+      - VNC_PW=<your_password>
+      - LAUNCH_URL=https://web.whatsapp.com
+      - TZ=Asia/Jakarta
+    volumes:
+      - wa-kube-2-data:/home/kasm-user
+    restart: unless-stopped
+volumes:
+  wa-kube-1-data:
+  wa-kube-2-data:
