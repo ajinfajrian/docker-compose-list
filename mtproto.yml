@@ -1,0 +1,20 @@
+services:
+  mtproto-proxy:
+    image: seriyps/mtproto-proxy
+    network_mode: bridge
+    environment:
+      - TZ=Asia/Jakarta
+      - MTP_PORT=1443
+      - MTP_SECRET=<secret>
+      - MTP_TAG=<tag> ## optional
+      - MTP_DD_ONLY=t
+    restart: unless-stopped
+    ports:
+      - "1443:1443"
+    mem_limit: 512m
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    security_opt:
+      - seccomp=/etc/docker/seccomp/default.json
+      - apparmor=docker-default
