@@ -1,0 +1,23 @@
+services:
+  adguardhome:
+    container_name: adguardhome
+    image: adguard/adguardhome
+    restart: unless-stopped
+    network_mode: bridge
+    volumes:
+      - ./data/adguard/workdir:/opt/adguardhome/work
+      - ./data/adguard/confdir:/opt/adguardhome/conf
+      - ./data/nginx-proxy/letsencrypt:/opt/adguardhome/ssl:ro ## read only ssl
+    environment:
+      - TZ=Asia/Jakarta
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    mem_limit: 1024m
+    ports:
+      - "127.0.0.53:53:53"
+      - "172.17.0.1:8081:80"
+      - "10443:443"
+      - "853:853"
+    security_opt:
+      - seccomp=/etc/docker/seccomp/default.json
+      - apparmor=docker-default
